@@ -15,8 +15,6 @@ public class SearchStudentByCarnetService implements IService{
     @Override
     public void executeService() {
         try{
-            Scanner sc = new Scanner(System.in);
-
             String universityClass = Console.ReadString("Ingrese la materia en que esta inscrita el estudiante: ");
             String carnet = Console.ReadString("Carnet del estudiante: ");
 

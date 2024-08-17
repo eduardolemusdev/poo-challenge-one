@@ -6,6 +6,7 @@ import com.udb.models.Student;
 import com.udb.utils.Console;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ListStudentsService implements IService{
@@ -21,9 +22,9 @@ public class ListStudentsService implements IService{
 
             String universityClass = Console.ReadString("Ingresa el nombre de la clase/materia: ");
 
-            List<Student> students = this.databaseUDB.getStudentsByClass(universityClass);
+            Map<String, Student> students = this.databaseUDB.getStudentsByClass(universityClass);
 
-            for (Student student : students) {
+            for (Student student : students.values()) {
                 Console.WriteString("Carnet: " + student.getCarnet() + ", Nombre: " + student.getName(),true);
             }
         }catch (UniversityClassNotFoundException e){
