@@ -1,5 +1,6 @@
 package com.udb.database;
 
+import com.udb.exceptions.StudentAlreadyExists;
 import com.udb.exceptions.StudentNotFoundException;
 import com.udb.exceptions.UniversityClassNotFoundException;
 import com.udb.models.Student;
@@ -20,9 +21,18 @@ public class DatabaseUDB {
         return this.getStudentsClassIfExistOrThrowsException(universityClass);
     }
 
-    public void addNewStudent(String universityClass, Student newStudent) throws UniversityClassNotFoundException {
+    public void addNewStudent(String universityClass, Student newStudent) throws UniversityClassNotFoundException, StudentAlreadyExists {
         Map<String, Student> students = this.getStudentsClassIfExistOrThrowsException(universityClass);
+
+        boolean studentAlreadyExist = students.containsKey(newStudent.getCarnet());
+        StringBuffer sb = new StringBuffer();
+        String errorMessage = sb.append("El carnet: ").append(newStudent.getCarnet()).append(", ya existe.").toString();
+
+        if (studentAlreadyExist) {
+            throw new StudentAlreadyExists(errorMessage);
+        }
         students.put(newStudent.getCarnet(), newStudent);
+
     }
 
     public void removeStudent(String universityClass, String carnet) throws StudentNotFoundException {
